@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:context=".fragments.MapsFragment">
+
+
+        <TextView
+            android:id="@+id/tv_addingNew"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/adding_new"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.task4.customview.ResultView
+            android:id="@+id/rv_adding_hashMap"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/rv_adding_treeMap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_addingNew"
+            app:rv_head="@string/hashmap" />
+
+        <com.example.task4.customview.ResultView
+            android:id="@+id/rv_adding_treeMap"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rv_adding_hashMap"
+            app:layout_constraintTop_toBottomOf="@+id/tv_addingNew"
+            app:rv_head="@string/treemap" />
+
+        <TextView
+            android:id="@+id/tv_searchByKey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/search_by_key"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_adding_hashMap" />
+
+
+        <com.example.task4.customview.ResultView
+            android:id="@+id/rv_searchByKey_hashMap"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/rv_searchByKey_treeMap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_searchByKey"
+            app:rv_head="@string/hashmap" />
+
+        <com.example.task4.customview.ResultView
+            android:id="@+id/rv_searchByKey_treeMap"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rv_searchByKey_hashMap"
+            app:layout_constraintTop_toBottomOf="@+id/tv_searchByKey"
+            app:rv_head="@string/treemap" />
+
+        <TextView
+            android:id="@+id/tv_removing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/removing"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_searchByKey_hashMap" />
+
+        <com.example.task4.customview.ResultView
+            android:id="@+id/rv_removing_hashMap"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toStartOf="@+id/rv_removing_treeMap"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_removing"
+            app:rv_head="@string/hashmap" />
+
+
+        <com.example.task4.customview.ResultView
+            android:id="@+id/rv_removing_treeMap"
+            android:layout_width="120dp"
+            android:layout_height="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rv_removing_hashMap"
+            app:layout_constraintTop_toBottomOf="@+id/tv_removing"
+            app:rv_head="@string/treemap" />
+
+        <Button
+            android:id="@+id/btn_clear_map"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="100dp"
+            android:text="@string/clear"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tv_size_desc_map"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/map_size_desc"
+        android:textSize="20sp"
+        android:visibility="visible" />
+
+    <FrameLayout
+        android:id="@+id/frameLayout_map"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:layout_margin="16dp"
+            android:hint="@string/map_size">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_mapSize"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_calculate_map"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_gravity="center|bottom"
+            android:layout_margin="16dp"
+            android:text="@string/calculate"
+            android:textSize="25sp" />
+    </FrameLayout>
+</LinearLayout>
