@@ -11,6 +11,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,25 +20,17 @@ import android.view.ViewGroup;
 import com.example.task4.R;
 import com.example.task4.customview.ResultView;
 import com.example.task4.databinding.MapsFragmentBinding;
-import com.example.task4.model.constants.Operations;
-import com.example.task4.model.operations.IOperation;
-import com.example.task4.model.operations.fillingCollections.FillingMap;
-import com.example.task4.model.operations.testsMap.AddingNewHashMap;
-import com.example.task4.model.operations.testsMap.AddingNewTreeMap;
-import com.example.task4.model.operations.testsMap.RemovingHashMap;
-import com.example.task4.model.operations.testsMap.RemovingTreeMap;
-import com.example.task4.model.operations.testsMap.SearchByKeyHashMap;
-import com.example.task4.model.operations.testsMap.SearchByKeyTreeMap;
+import com.example.task4.presenter.MVPApp;
+import com.example.task4.presenter.MapPresenter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Objects;
 
-public class MapsFragment extends RootFragment implements IResultObserver {
+public class MapsFragment extends Fragment implements IResultObserver {
     private MapsFragmentBinding binding;
     private final HashMap<Integer, ResultView> views = new HashMap<>();
-    private Boolean check = false;
+    private final MapPresenter presenter = MVPApp.getMapPresenter();
+    private boolean check=false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -50,28 +43,22 @@ public class MapsFragment extends RootFragment implements IResultObserver {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewsInit();
+        presenter.attachView(this);
         clearUIData();
-        checkPreviousData();
+        presenter.viewCreated(views.keySet());
 
         binding.btnCalculateMap.setOnClickListener(v -> {
             String size = Objects.requireNonNull(binding.etMapSize.getText()).toString();
             if (!size.equals("") && Integer.parseInt(size) > 9) {
+                presenter.calculate(Integer.parseInt(size));
 
-                List<IOperation> fillingMap = new ArrayList<>();
-                fillingMap.add(new FillingMap(Integer.parseInt(size)));
-                iDataKeeper.runOperation(fillingMap, this);
-
-                binding.constraintLayout.setVisibility(View.VISIBLE);
-                binding.frameLayoutMap.setVisibility(View.GONE);
-                binding.tvSizeDescMap.setVisibility(View.GONE);
+                setVisibleResult(true);
                 clearUIData();
             }
         });
 
         binding.btnClearMap.setOnClickListener(v -> {
-            binding.constraintLayout.setVisibility(View.GONE);
-            binding.frameLayoutMap.setVisibility(View.VISIBLE);
-            binding.tvSizeDescMap.setVisibility(View.VISIBLE);
+            setVisibleResult(false);
         });
     }
 
@@ -81,42 +68,24 @@ public class MapsFragment extends RootFragment implements IResultObserver {
         }
     }
 
-    private void checkPreviousData() {
-        HashMap<Integer, String> data = iDataKeeper.getResults();
-        String currentData;
-        for (Integer i : views.keySet()) {
-            currentData = data.get(i);
-            if (currentData != null && !Objects.equals(currentData, getString(R.string.space))) {
-                if (!check) {
-                    binding.constraintLayout.setVisibility(View.VISIBLE);
-                    binding.frameLayoutMap.setVisibility(View.GONE);
-                    binding.tvSizeDescMap.setVisibility(View.GONE);
-                    check = true;
-                }
-                ResultView resultView = views.get(i);
-                resultView.setResult(currentData);
-            }
-        }
-    }
-
-    public void createTests() {
-        List<IOperation> tests = new ArrayList<>();
-        tests.add(new AddingNewHashMap(HeadlessTestsFragment.hashMap));
-        tests.add(new AddingNewTreeMap(HeadlessTestsFragment.treeMap));
-        tests.add(new RemovingHashMap(HeadlessTestsFragment.hashMap));
-        tests.add(new RemovingTreeMap(HeadlessTestsFragment.treeMap));
-        tests.add(new SearchByKeyHashMap(HeadlessTestsFragment.hashMap));
-        tests.add(new SearchByKeyTreeMap(HeadlessTestsFragment.treeMap));
-
-        iDataKeeper.runOperation(tests, this);
-    }
-
     @Override
     public void dataSetChanged(Integer testID, String result) {
-        if (testID == Operations.FillingMapCompleted.ordinal()) {
-            createTests();
+        if (!check){
+            setVisibleResult(true);
+            check=false;
+        }
+        views.get(testID).setResult(result);
+    }
+
+    private void setVisibleResult(Boolean visible){
+        if (visible){
+            binding.constraintLayout.setVisibility(View.VISIBLE);
+            binding.frameLayoutMap.setVisibility(View.GONE);
+            binding.tvSizeDescMap.setVisibility(View.GONE);
         } else {
-            views.get(testID).setResult(result);
+            binding.constraintLayout.setVisibility(View.GONE);
+            binding.frameLayoutMap.setVisibility(View.VISIBLE);
+            binding.tvSizeDescMap.setVisibility(View.VISIBLE);
         }
     }
 

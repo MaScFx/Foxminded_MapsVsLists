@@ -2,7 +2,7 @@ package com.example.task4.model.operations.fillingCollections;
 
 import static com.example.task4.model.constants.Operations.FillingMapCompleted;
 
-import com.example.task4.fragments.HeadlessTestsFragment;
+import com.example.task4.model.OperationRunner;
 
 
 import java.util.HashMap;
@@ -24,8 +24,8 @@ public class FillingMap extends BaseFilling {
             treeMap.put("key " + i, i);
         }
 
-        HeadlessTestsFragment.hashMap = hashMap;
-        HeadlessTestsFragment.treeMap = treeMap;
+        OperationRunner.hashMap = hashMap;
+        OperationRunner.treeMap = treeMap;
 
         handler.sendMessage(handler.obtainMessage(FillingMapCompleted.ordinal(), 0, 0));
     }

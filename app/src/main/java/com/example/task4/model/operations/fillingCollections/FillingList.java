@@ -2,7 +2,7 @@ package com.example.task4.model.operations.fillingCollections;
 
 import static com.example.task4.model.constants.Operations.FillingListCompleted;
 
-import com.example.task4.fragments.HeadlessTestsFragment;
+import com.example.task4.model.OperationRunner;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -23,9 +23,9 @@ public class FillingList extends BaseFilling {
         LinkedList<Integer> linkedList = new LinkedList<>(arrayList);
         CopyOnWriteArrayList<Integer> copyOnWrite = new CopyOnWriteArrayList<>(arrayList);
 
-        HeadlessTestsFragment.arrayList = arrayList;
-        HeadlessTestsFragment.linkedList = linkedList;
-        HeadlessTestsFragment.copyOnWrite = copyOnWrite;
+        OperationRunner.arrayList = arrayList;
+        OperationRunner.linkedList = linkedList;
+        OperationRunner.copyOnWrite = copyOnWrite;
 
         handler.sendMessage(handler.obtainMessage(FillingListCompleted.ordinal(), 0, 0));
     }
