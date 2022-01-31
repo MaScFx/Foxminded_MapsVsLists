@@ -1,9 +1,9 @@
 package com.example.task4.model.operations;
 
-import android.os.Handler;
+import android.util.Pair;
 
-public interface IOperation extends Runnable {
+import java.util.concurrent.Callable;
+
+public interface IOperation extends Callable<Pair<Integer,String>> {
     Integer getIDOperation();
-
-    void setHandler(Handler handler);
 }

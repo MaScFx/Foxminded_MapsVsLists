@@ -2,6 +2,8 @@ package com.example.task4.model.operations.testsCollection;
 
 import static com.example.task4.model.constants.Operations.AddingBeginningCoW;
 
+import android.util.Pair;
+
 import java.util.List;
 
 public class AddingBeginningCoW extends BaseListOperationClass {
@@ -11,16 +13,16 @@ public class AddingBeginningCoW extends BaseListOperationClass {
     }
 
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return AddingBeginningCoW.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() throws Exception {
         long startTime = System.currentTimeMillis();
         list.add(0, 1);
         long finalTime = System.currentTimeMillis() - startTime;
 
-        handler.sendMessage(handler.obtainMessage(AddingBeginningCoW.ordinal(), (int) finalTime, 0));
-    }
-
-    @Override
-    public Integer getIDOperation() {
-        return AddingBeginningCoW.ordinal();
+        return new Pair<>(AddingBeginningCoW.ordinal(), String.valueOf(finalTime));
     }
 }

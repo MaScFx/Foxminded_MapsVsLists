@@ -20,17 +20,22 @@ import android.view.ViewGroup;
 import com.example.task4.R;
 import com.example.task4.customview.ResultView;
 import com.example.task4.databinding.MapsFragmentBinding;
-import com.example.task4.presenter.MVPApp;
+import com.example.task4.presenter.MainApp;
 import com.example.task4.presenter.MapPresenter;
 
 import java.util.HashMap;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
+
 public class MapsFragment extends Fragment implements IResultObserver {
+
     private MapsFragmentBinding binding;
     private final HashMap<Integer, ResultView> views = new HashMap<>();
-    private final MapPresenter presenter = MVPApp.getMapPresenter();
-    private boolean check=false;
+    @Inject
+    public MapPresenter presenter;
+    private boolean check = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,9 +47,9 @@ public class MapsFragment extends Fragment implements IResultObserver {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainApp) requireContext().getApplicationContext()).appComponent.inject(this);
         viewsInit();
         presenter.attachView(this);
-        clearUIData();
         presenter.viewCreated(views.keySet());
 
         binding.btnCalculateMap.setOnClickListener(v -> {
@@ -70,15 +75,15 @@ public class MapsFragment extends Fragment implements IResultObserver {
 
     @Override
     public void dataSetChanged(Integer testID, String result) {
-        if (!check){
+        if (!check) {
             setVisibleResult(true);
-            check=false;
+            check = false;
         }
         views.get(testID).setResult(result);
     }
 
-    private void setVisibleResult(Boolean visible){
-        if (visible){
+    private void setVisibleResult(Boolean visible) {
+        if (visible) {
             binding.constraintLayout.setVisibility(View.VISIBLE);
             binding.frameLayoutMap.setVisibility(View.GONE);
             binding.tvSizeDescMap.setVisibility(View.GONE);

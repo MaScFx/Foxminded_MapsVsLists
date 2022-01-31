@@ -2,6 +2,8 @@ package com.example.task4.model.operations.testsCollection;
 
 import static com.example.task4.model.constants.Operations.SearchAL;
 
+import android.util.Pair;
+
 import java.util.List;
 
 public class SearchAL extends BaseListOperationClass {
@@ -11,18 +13,18 @@ public class SearchAL extends BaseListOperationClass {
     }
 
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return SearchAL.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() throws Exception {
         int size = list.size();
 
         long startTime = System.currentTimeMillis();
         list.indexOf(size / 2);
         long finalTime = System.currentTimeMillis() - startTime;
 
-        handler.sendMessage(handler.obtainMessage(SearchAL.ordinal(), (int) finalTime, 0));
-    }
-
-    @Override
-    public Integer getIDOperation() {
-        return SearchAL.ordinal();
+        return new Pair<>(SearchAL.ordinal(), String.valueOf(finalTime));
     }
 }

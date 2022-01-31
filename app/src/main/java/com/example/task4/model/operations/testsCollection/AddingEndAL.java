@@ -2,6 +2,8 @@ package com.example.task4.model.operations.testsCollection;
 
 import static com.example.task4.model.constants.Operations.AddingEndAL;
 
+import android.util.Pair;
+
 import java.util.List;
 
 public class AddingEndAL extends BaseListOperationClass {
@@ -11,7 +13,12 @@ public class AddingEndAL extends BaseListOperationClass {
     }
 
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return AddingEndAL.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() throws Exception {
         long finalTime;
 
         synchronized (list) {
@@ -21,11 +28,6 @@ public class AddingEndAL extends BaseListOperationClass {
             finalTime = System.currentTimeMillis() - startTime;
         }
 
-        handler.sendMessage(handler.obtainMessage(AddingEndAL.ordinal(), (int) finalTime, 0));
-    }
-
-    @Override
-    public Integer getIDOperation() {
-        return AddingEndAL.ordinal();
+        return new Pair<>(AddingEndAL.ordinal(), String.valueOf(finalTime));
     }
 }

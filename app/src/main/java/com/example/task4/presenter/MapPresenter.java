@@ -1,8 +1,9 @@
 package com.example.task4.presenter;
 
+import android.util.Log;
+
 import com.example.task4.model.IDataKeeper;
 import com.example.task4.model.OperationRunner;
-import com.example.task4.model.constants.Operations;
 import com.example.task4.model.operations.IOperation;
 import com.example.task4.model.operations.fillingCollections.FillingMap;
 import com.example.task4.model.operations.testsMap.AddingNewHashMap;
@@ -15,8 +16,17 @@ import com.example.task4.model.operations.testsMap.SearchByKeyTreeMap;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+@Singleton
 public class MapPresenter extends FragmentPresenter.Presenter {
 
+    private static final String TAG = "TAG";
+
+    @Inject
     public MapPresenter(IDataKeeper model) {
         super(model);
     }
@@ -25,7 +35,14 @@ public class MapPresenter extends FragmentPresenter.Presenter {
     public void calculate(Integer count) {
         List<IOperation> fillingMap = new ArrayList<>();
         fillingMap.add(new FillingMap(count));
-        model.runOperation(fillingMap, this);
+        model.runOperation(fillingMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(intStrPair -> {
+                    createTests();
+                }, throwable -> {
+                    Log.i(TAG, "calculate: " + throwable.toString());
+                });
     }
 
     private void createTests() {
@@ -37,15 +54,13 @@ public class MapPresenter extends FragmentPresenter.Presenter {
         tests.add(new SearchByKeyHashMap(OperationRunner.hashMap));
         tests.add(new SearchByKeyTreeMap(OperationRunner.treeMap));
 
-        model.runOperation(tests, this);
-    }
-
-    @Override
-    public void dataSetChanged(Integer testID, String result) {
-        if (testID == Operations.FillingMapCompleted.ordinal()) {
-            createTests();
-        } else {
-            view.dataSetChanged(testID, result);
-        }
+        model.runOperation(tests)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(intStrPair -> {
+                    view.dataSetChanged(intStrPair.first, intStrPair.second);
+                }, throwable -> {
+                    Log.i(TAG, "createTests: " + throwable.toString());
+                });
     }
 }

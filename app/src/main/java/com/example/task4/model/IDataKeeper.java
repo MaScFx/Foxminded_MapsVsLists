@@ -1,13 +1,17 @@
 package com.example.task4.model;
 
-import com.example.task4.fragments.IResultObserver;
+import android.util.Pair;
+
 import com.example.task4.model.operations.IOperation;
 
 import java.util.HashMap;
 import java.util.List;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+
 public interface IDataKeeper {
     HashMap<Integer, String> getResults();
 
-    void runOperation(List<IOperation> testsList, IResultObserver observer);
+     @NonNull Observable<Pair<Integer, String>> runOperation(List<IOperation> testsList);
 }

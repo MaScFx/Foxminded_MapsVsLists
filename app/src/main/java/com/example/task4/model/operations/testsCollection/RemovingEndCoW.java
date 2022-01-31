@@ -2,6 +2,8 @@ package com.example.task4.model.operations.testsCollection;
 
 import static com.example.task4.model.constants.Operations.RemovingEndCoW;
 
+import android.util.Pair;
+
 import java.util.List;
 
 public class RemovingEndCoW extends BaseListOperationClass {
@@ -10,8 +12,14 @@ public class RemovingEndCoW extends BaseListOperationClass {
         super(list);
     }
 
+
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return RemovingEndCoW.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() throws Exception {
         long finalTime;
 
         synchronized (list) {
@@ -21,13 +29,7 @@ public class RemovingEndCoW extends BaseListOperationClass {
             finalTime = System.currentTimeMillis() - startTime;
         }
 
-        handler.sendMessage(handler.obtainMessage(RemovingEndCoW.ordinal(), (int) finalTime, 0));
-
-    }
-
-    @Override
-    public Integer getIDOperation() {
-        return RemovingEndCoW.ordinal();
+        return new Pair<>(RemovingEndCoW.ordinal(), String.valueOf(finalTime));
     }
 }
 

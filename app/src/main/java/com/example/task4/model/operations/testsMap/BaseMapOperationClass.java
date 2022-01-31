@@ -1,7 +1,5 @@
 package com.example.task4.model.operations.testsMap;
 
-import android.os.Handler;
-
 import com.example.task4.model.operations.IOperation;
 
 import java.util.Map;
@@ -13,14 +11,4 @@ public abstract class BaseMapOperationClass implements IOperation {
     }
 
     protected final Map<String, Integer> map;
-    protected Handler handler;
-
-    @Override
-    public void run() {
-
-    }
-
-    public void setHandler(Handler handler) {
-        this.handler = handler;
-    }
 }

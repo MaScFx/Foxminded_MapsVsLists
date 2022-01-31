@@ -2,6 +2,8 @@ package com.example.task4.model.operations.fillingCollections;
 
 import static com.example.task4.model.constants.Operations.FillingMapCompleted;
 
+import android.util.Pair;
+
 import com.example.task4.model.OperationRunner;
 
 
@@ -15,7 +17,12 @@ public class FillingMap extends BaseFilling {
     }
 
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return FillingMapCompleted.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() throws Exception {
         HashMap<String, Integer> hashMap = new HashMap<>();
         TreeMap<String, Integer> treeMap = new TreeMap<>();
 
@@ -27,10 +34,6 @@ public class FillingMap extends BaseFilling {
         OperationRunner.hashMap = hashMap;
         OperationRunner.treeMap = treeMap;
 
-        handler.sendMessage(handler.obtainMessage(FillingMapCompleted.ordinal(), 0, 0));
-    }
-    @Override
-    public Integer getIDOperation() {
-        return FillingMapCompleted.ordinal();
+        return new Pair<>(FillingMapCompleted.ordinal(),"");
     }
 }

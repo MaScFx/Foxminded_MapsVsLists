@@ -2,6 +2,8 @@ package com.example.task4.model.operations.fillingCollections;
 
 import static com.example.task4.model.constants.Operations.FillingListCompleted;
 
+import android.util.Pair;
+
 import com.example.task4.model.OperationRunner;
 
 import java.util.ArrayList;
@@ -15,7 +17,12 @@ public class FillingList extends BaseFilling {
     }
 
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return FillingListCompleted.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() throws Exception {
         ArrayList<Integer> arrayList = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             arrayList.add(i);
@@ -27,10 +34,6 @@ public class FillingList extends BaseFilling {
         OperationRunner.linkedList = linkedList;
         OperationRunner.copyOnWrite = copyOnWrite;
 
-        handler.sendMessage(handler.obtainMessage(FillingListCompleted.ordinal(), 0, 0));
-    }
-    @Override
-    public Integer getIDOperation() {
-        return FillingListCompleted.ordinal();
+        return new Pair<>(FillingListCompleted.ordinal(),"");
     }
 }

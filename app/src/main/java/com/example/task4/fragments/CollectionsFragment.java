@@ -3,7 +3,6 @@ package com.example.task4.fragments;
 
 import static com.example.task4.model.constants.Operations.*;
 
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,17 +16,21 @@ import android.view.ViewGroup;
 import com.example.task4.R;
 import com.example.task4.customview.ResultView;
 import com.example.task4.databinding.CollectionsFragmentBinding;
-import com.example.task4.presenter.FragmentPresenter;
-import com.example.task4.presenter.MVPApp;
+import com.example.task4.presenter.CollectionPresenter;
+import com.example.task4.presenter.MainApp;
 
 import java.util.HashMap;
 import java.util.Objects;
 
+import javax.inject.Inject;
+
 public class CollectionsFragment extends Fragment implements IResultObserver {
     private CollectionsFragmentBinding binding;
     private final HashMap<Integer, ResultView> views = new HashMap<>();
-    private final FragmentPresenter presenter = MVPApp.getCollectionPresenter();
-    private boolean check=false;
+    @Inject
+    public CollectionPresenter presenter;
+
+    private boolean check = false;
 
 
     @Override
@@ -40,9 +43,9 @@ public class CollectionsFragment extends Fragment implements IResultObserver {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ((MainApp) requireContext().getApplicationContext()).appComponent.inject(this);
         viewsInit();
         presenter.attachView(this);
-        clearUIData();
         presenter.viewCreated(views.keySet());
 
         binding.btnCalculateList.setOnClickListener(v -> {
@@ -69,14 +72,15 @@ public class CollectionsFragment extends Fragment implements IResultObserver {
 
     @Override
     public void dataSetChanged(Integer testID, String result) {
-        if (!check){
+        if (!check) {
             setVisibleResult(true);
-            check=false;
+            check = false;
         }
         views.get(testID).setResult(result);
     }
-    private void setVisibleResult(Boolean visible){
-        if (visible){
+
+    private void setVisibleResult(Boolean visible) {
+        if (visible) {
             binding.cfConstraintLayout.setVisibility(View.VISIBLE);
             binding.frameLayoutList.setVisibility(View.GONE);
             binding.tvSizeDescList.setVisibility(View.GONE);

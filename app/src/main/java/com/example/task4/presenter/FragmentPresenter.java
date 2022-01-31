@@ -1,8 +1,5 @@
 package com.example.task4.presenter;
 
-import android.content.Context;
-
-import com.example.task4.model.OperationRunner;
 import com.example.task4.model.IDataKeeper;
 import com.example.task4.fragments.IResultObserver;
 
@@ -16,7 +13,7 @@ public interface FragmentPresenter {
 
     void calculate(Integer count);
 
-    abstract class Presenter implements FragmentPresenter, IResultObserver {
+    abstract class Presenter implements FragmentPresenter {
         protected IResultObserver view;
         protected IDataKeeper model;
 
@@ -40,7 +37,5 @@ public interface FragmentPresenter {
                 }
             }
         }
-
     }
-
 }

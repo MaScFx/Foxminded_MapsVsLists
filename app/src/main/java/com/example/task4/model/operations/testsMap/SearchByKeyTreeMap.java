@@ -2,6 +2,7 @@ package com.example.task4.model.operations.testsMap;
 
 import static com.example.task4.model.constants.Operations.SearchTM;
 
+import android.util.Pair;
 
 import java.util.Map;
 
@@ -12,19 +13,18 @@ public class SearchByKeyTreeMap extends BaseMapOperationClass {
     }
 
     @Override
-    public void run() {
+    public Integer getIDOperation() {
+        return SearchTM.ordinal();
+    }
+
+    @Override
+    public Pair<Integer, String> call() {
         int size = map.size();
 
         long startTime = System.currentTimeMillis();
         map.get("key " + size / 2);
         long finalTime = System.currentTimeMillis() - startTime;
 
-        handler.sendMessage(handler.obtainMessage(SearchTM.ordinal(), (int) finalTime, 0));
+        return new Pair<>(SearchTM.ordinal(), String.valueOf(finalTime));
     }
-
-    @Override
-    public Integer getIDOperation() {
-        return SearchTM.ordinal();
-    }
-
 }

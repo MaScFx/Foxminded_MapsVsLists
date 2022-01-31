@@ -19,6 +19,5 @@ public class MainActivity extends AppCompatActivity {
         binding.mainVp2.setAdapter(new PagerAdapter(this));
         new TabLayoutMediator(binding.tabLayout, binding.mainVp2, ((tab, position) ->
                 tab.setText(position == 0 ? R.string.collections : R.string.maps))).attach();
-
     }
 }
