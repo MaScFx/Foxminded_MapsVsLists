@@ -8,27 +8,27 @@ import android.util.Pair;
 
 import java.util.List;
 
-public class RemovingBeginningCoW extends BaseListOperationClass {
+public class RemovingBeginningCoW extends RemovingBeginningBase {
 
     public RemovingBeginningCoW(List<Integer> list) {
-        super(list);
+        super(list,RemovingBeginningCoW.ordinal());
     }
 
-    @Override
-    public Integer getIDOperation() {
-        return RemovingBeginningCoW.ordinal();
-    }
+//    @Override
+//    public Integer getIDOperation() {
+//        return RemovingBeginningCoW.ordinal();
+//    }
 
-    @Override
-    public Pair<Integer, String> call() throws Exception {
-        long finalTime;
-
-        synchronized (list) {
-            long startTime = System.currentTimeMillis();
-            list.remove(0);
-            finalTime = System.currentTimeMillis() - startTime;
-        }
-
-        return new Pair<>(RemovingBeginningCoW.ordinal(), String.valueOf(finalTime));
-    }
+//    @Override
+//    public Pair<Integer, String> call() throws Exception {
+//        long finalTime;
+//
+//        synchronized (list) {
+//            long startTime = System.currentTimeMillis();
+//            list.remove(0);
+//            finalTime = System.currentTimeMillis() - startTime;
+//        }
+//
+//        return new Pair<>(RemovingBeginningCoW.ordinal(), String.valueOf(finalTime));
+//    }
 }

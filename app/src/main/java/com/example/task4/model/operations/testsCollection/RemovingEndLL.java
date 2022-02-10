@@ -6,28 +6,28 @@ import android.util.Pair;
 
 import java.util.List;
 
-public class RemovingEndLL extends BaseListOperationClass {
+public class RemovingEndLL extends RemovingEndBase {
 
     public RemovingEndLL(List<Integer> list) {
-        super(list);
+        super(list,RemovingEndLL.ordinal());
     }
 
-    @Override
-    public Integer getIDOperation() {
-        return RemovingEndLL.ordinal();
-    }
+//    @Override
+//    public Integer getIDOperation() {
+//        return RemovingEndLL.ordinal();
+//    }
 
-    @Override
-    public Pair<Integer, String> call() throws Exception {
-        long finalTime;
-
-        synchronized (list) {
-            int size = list.size();
-            long startTime = System.currentTimeMillis();
-            list.remove(size - 1);
-            finalTime = System.currentTimeMillis() - startTime;
-        }
-
-        return new Pair<>(RemovingEndLL.ordinal(), String.valueOf(finalTime));
-    }
+//    @Override
+//    public Pair<Integer, String> call() throws Exception {
+//        long finalTime;
+//
+//        synchronized (list) {
+//            int size = list.size();
+//            long startTime = System.currentTimeMillis();
+//            list.remove(size - 1);
+//            finalTime = System.currentTimeMillis() - startTime;
+//        }
+//
+//        return new Pair<>(RemovingEndLL.ordinal(), String.valueOf(finalTime));
+//    }
 }

@@ -17,6 +17,7 @@ import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
 public class OperationRunner implements IDataKeeper {
@@ -35,6 +36,7 @@ public class OperationRunner implements IDataKeeper {
     @Override
     public @NonNull Observable<Pair<Integer, String>> runOperation(List<IOperation> testsList) {
         return Observable.fromIterable(testsList)
+                .subscribeOn(Schedulers.computation())
                 .map(Callable::call)
                 .doOnNext(intStrPair -> {
                     results.put(intStrPair.first, intStrPair.second);

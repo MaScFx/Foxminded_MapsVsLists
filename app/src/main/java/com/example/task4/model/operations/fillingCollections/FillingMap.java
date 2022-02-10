@@ -6,19 +6,13 @@ import android.util.Pair;
 
 import com.example.task4.model.OperationRunner;
 
-
 import java.util.HashMap;
 import java.util.TreeMap;
 
 public class FillingMap extends BaseFilling {
 
     public FillingMap(Integer size) {
-        super(size);
-    }
-
-    @Override
-    public Integer getIDOperation() {
-        return FillingMapCompleted.ordinal();
+        super(size, FillingMapCompleted.ordinal());
     }
 
     @Override
@@ -34,6 +28,6 @@ public class FillingMap extends BaseFilling {
         OperationRunner.hashMap = hashMap;
         OperationRunner.treeMap = treeMap;
 
-        return new Pair<>(FillingMapCompleted.ordinal(),"");
+        return new Pair<>(getIDOperation(), "");
     }
 }

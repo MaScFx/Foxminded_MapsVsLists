@@ -13,12 +13,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class FillingList extends BaseFilling {
 
     public FillingList(Integer size) {
-        super(size);
-    }
-
-    @Override
-    public Integer getIDOperation() {
-        return FillingListCompleted.ordinal();
+        super(size, FillingListCompleted.ordinal());
     }
 
     @Override
@@ -34,6 +29,6 @@ public class FillingList extends BaseFilling {
         OperationRunner.linkedList = linkedList;
         OperationRunner.copyOnWrite = copyOnWrite;
 
-        return new Pair<>(FillingListCompleted.ordinal(),"");
+        return new Pair<>(getIDOperation(), "");
     }
 }

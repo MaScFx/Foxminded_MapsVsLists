@@ -20,7 +20,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
+
 @Singleton
 public class MapPresenter extends FragmentPresenter.Presenter {
 
@@ -36,16 +36,16 @@ public class MapPresenter extends FragmentPresenter.Presenter {
         List<IOperation> fillingMap = new ArrayList<>();
         fillingMap.add(new FillingMap(count));
         model.runOperation(fillingMap)
-                .subscribeOn(Schedulers.io())
+                .flatMap(x -> model.runOperation(createTests()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(intStrPair -> {
-                    createTests();
+                    view.dataSetChanged(intStrPair.first, intStrPair.second);
                 }, throwable -> {
-                    Log.i(TAG, "calculate: " + throwable.toString());
+                    Log.i(TAG, "createTests: " + throwable.toString());
                 });
     }
 
-    private void createTests() {
+    private List<IOperation> createTests() {
         List<IOperation> tests = new ArrayList<>();
         tests.add(new AddingNewHashMap(OperationRunner.hashMap));
         tests.add(new AddingNewTreeMap(OperationRunner.treeMap));
@@ -53,14 +53,6 @@ public class MapPresenter extends FragmentPresenter.Presenter {
         tests.add(new RemovingTreeMap(OperationRunner.treeMap));
         tests.add(new SearchByKeyHashMap(OperationRunner.hashMap));
         tests.add(new SearchByKeyTreeMap(OperationRunner.treeMap));
-
-        model.runOperation(tests)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(intStrPair -> {
-                    view.dataSetChanged(intStrPair.first, intStrPair.second);
-                }, throwable -> {
-                    Log.i(TAG, "createTests: " + throwable.toString());
-                });
+        return tests;
     }
 }

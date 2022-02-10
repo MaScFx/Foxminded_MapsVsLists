@@ -1,13 +1,11 @@
 package com.example.task4.fragments;
 
-
 import static com.example.task4.model.constants.Operations.*;
 
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,34 +14,38 @@ import android.view.ViewGroup;
 import com.example.task4.R;
 import com.example.task4.customview.ResultView;
 import com.example.task4.databinding.CollectionsFragmentBinding;
-import com.example.task4.presenter.CollectionPresenter;
-import com.example.task4.presenter.MainApp;
+import com.example.task4.presenter.FragmentPresenter;
 
 import java.util.HashMap;
 import java.util.Objects;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class CollectionsFragment extends Fragment implements IResultObserver {
+import dagger.android.support.DaggerFragment;
+
+public class CollectionsFragment extends DaggerFragment implements IResultObserver {
+
     private CollectionsFragmentBinding binding;
     private final HashMap<Integer, ResultView> views = new HashMap<>();
     @Inject
-    public CollectionPresenter presenter;
+    @Named("collectionFragment")
+    public FragmentPresenter presenter;
 
     private boolean check = false;
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = CollectionsFragmentBinding.inflate(getLayoutInflater(), container, false);
+
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((MainApp) requireContext().getApplicationContext()).appComponent.inject(this);
+
         viewsInit();
         presenter.attachView(this);
         presenter.viewCreated(views.keySet());

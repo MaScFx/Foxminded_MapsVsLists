@@ -2,16 +2,31 @@ package com.example.task4.presenter;
 
 import android.app.Application;
 
-import com.example.task4.di.AppComponent;
 import com.example.task4.di.DaggerAppComponent;
 
-public class MainApp extends Application {
+import javax.inject.Inject;
 
-    public AppComponent appComponent;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasAndroidInjector;
+
+public class MainApp extends Application implements HasAndroidInjector {
+    @Inject
+    DispatchingAndroidInjector<Object> androidInjector;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        appComponent = DaggerAppComponent.create();
+
+        DaggerAppComponent
+                .builder()
+                .application(this)
+                .build()
+                .inject(this);
+    }
+
+    @Override
+    public AndroidInjector<Object> androidInjector() {
+        return androidInjector;
     }
 }

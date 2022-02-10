@@ -13,5 +13,5 @@ import io.reactivex.rxjava3.core.Observable;
 public interface IDataKeeper {
     HashMap<Integer, String> getResults();
 
-     @NonNull Observable<Pair<Integer, String>> runOperation(List<IOperation> testsList);
+    @NonNull Observable<Pair<Integer, String>> runOperation(List<IOperation> testsList);
 }

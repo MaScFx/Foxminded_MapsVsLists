@@ -6,25 +6,11 @@ import android.util.Pair;
 
 import java.util.List;
 
-public class AddingMiddleAL extends BaseListOperationClass {
+public class AddingMiddleAL extends AddingMiddleBase {
 
     public AddingMiddleAL(List<Integer> list) {
-        super(list);
+        super(list,AddingMiddleAL.ordinal());
     }
 
-    @Override
-    public Integer getIDOperation() {
-        return AddingMiddleAL.ordinal();
-    }
 
-    @Override
-    public Pair<Integer, String> call() throws Exception {
-        int size = list.size();
-
-        long startTime = System.currentTimeMillis();
-        list.add(size / 2, size / 2);
-        long finalTime = System.currentTimeMillis() - startTime;
-
-        return new Pair<>(AddingMiddleAL.ordinal(), String.valueOf(finalTime));
-    }
 }

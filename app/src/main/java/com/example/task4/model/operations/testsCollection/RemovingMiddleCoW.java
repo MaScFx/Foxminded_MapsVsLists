@@ -6,28 +6,28 @@ import android.util.Pair;
 
 import java.util.List;
 
-public class RemovingMiddleCoW extends BaseListOperationClass {
+public class RemovingMiddleCoW extends RemovingMiddleBase {
 
     public RemovingMiddleCoW(List<Integer> list) {
-        super(list);
+        super(list,RemovingMiddleCoW.ordinal());
     }
 
-    @Override
-    public Integer getIDOperation() {
-        return RemovingMiddleCoW.ordinal();
-    }
-
-    @Override
-    public Pair<Integer, String> call() throws Exception {
-        long finalTime;
-
-        synchronized (list) {
-            int size = list.size();
-            long startTime = System.currentTimeMillis();
-            list.remove(size / 2);
-            finalTime = System.currentTimeMillis() - startTime;
-        }
-
-        return new Pair<>(RemovingMiddleCoW.ordinal(), String.valueOf(finalTime));
-    }
+//    @Override
+//    public Integer getIDOperation() {
+//        return RemovingMiddleCoW.ordinal();
+//    }
+//
+//    @Override
+//    public Pair<Integer, String> call() throws Exception {
+//        long finalTime;
+//
+//        synchronized (list) {
+//            int size = list.size();
+//            long startTime = System.currentTimeMillis();
+//            list.remove(size / 2);
+//            finalTime = System.currentTimeMillis() - startTime;
+//        }
+//
+//        return new Pair<>(RemovingMiddleCoW.ordinal(), String.valueOf(finalTime));
+//    }
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 
 public interface FragmentPresenter {
     void attachView(IResultObserver view);
+
     void viewCreated(Set<Integer> idOperations);
 
     void calculate(Integer count);
@@ -17,7 +18,7 @@ public interface FragmentPresenter {
         protected IResultObserver view;
         protected IDataKeeper model;
 
-        public Presenter( IDataKeeper model) {
+        public Presenter(IDataKeeper model) {
             this.model = model;
         }
 
@@ -33,7 +34,7 @@ public interface FragmentPresenter {
             for (Integer i : idOperations) {
                 currentData = data.get(i);
                 if (currentData != null && !Objects.equals(currentData, " ")) {
-                    view.dataSetChanged(i,currentData);
+                    view.dataSetChanged(i, currentData);
                 }
             }
         }

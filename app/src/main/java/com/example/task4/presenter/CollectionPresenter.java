@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 @Singleton
 public class CollectionPresenter extends FragmentPresenter.Presenter {
@@ -32,12 +31,12 @@ public class CollectionPresenter extends FragmentPresenter.Presenter {
         List<IOperation> fillingList = new ArrayList<>();
         fillingList.add(new FillingList(count));
         model.runOperation(fillingList)
-                .subscribeOn(Schedulers.computation())
+                .flatMap(integerStringPair -> model.runOperation(createTests()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(intStrPair -> {
-                    createTests();
+                    view.dataSetChanged(intStrPair.first, intStrPair.second);
                 }, throwable -> {
-                    Log.i(TAG, "calculate: " + throwable.toString());
+                    Log.i(TAG, "createTests: " + throwable.toString());
                 });
     }
 
@@ -46,11 +45,11 @@ public class CollectionPresenter extends FragmentPresenter.Presenter {
         super.viewCreated(idOperations);
     }
 
-    private void createTests() {
+    private List<IOperation> createTests() {
         List<IOperation> tests = new ArrayList<>();
-        tests.add(new AddingBeginningAL(OperationRunner.arrayList));
-        tests.add(new AddingBeginningLL(OperationRunner.linkedList));
-        tests.add(new AddingBeginningCoW(OperationRunner.arrayList));
+        tests.add(new AddingBeginningALBase(OperationRunner.arrayList));
+        tests.add(new AddingBeginningLLBase(OperationRunner.linkedList));
+        tests.add(new AddingBeginningCoWBase(OperationRunner.arrayList));
 
         tests.add(new AddingMiddleAL(OperationRunner.arrayList));
         tests.add(new AddingMiddleLL(OperationRunner.linkedList));
@@ -75,14 +74,6 @@ public class CollectionPresenter extends FragmentPresenter.Presenter {
         tests.add(new RemovingEndAL(OperationRunner.arrayList));
         tests.add(new RemovingEndLL(OperationRunner.linkedList));
         tests.add(new RemovingEndCoW(OperationRunner.arrayList));
-
-        model.runOperation(tests)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(intStrPair -> {
-                    view.dataSetChanged(intStrPair.first, intStrPair.second);
-                }, throwable -> {
-                    Log.i(TAG, "createTests: " + throwable.toString());
-                });
+        return tests;
     }
 }
