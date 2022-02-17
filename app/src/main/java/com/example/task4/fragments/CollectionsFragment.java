@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.example.task4.R;
 import com.example.task4.customview.ResultView;
 import com.example.task4.databinding.CollectionsFragmentBinding;
+import com.example.task4.di.DiConst;
 import com.example.task4.presenter.FragmentPresenter;
 
 import java.util.HashMap;
@@ -29,7 +30,7 @@ public class CollectionsFragment extends DaggerFragment implements IResultObserv
     private CollectionsFragmentBinding binding;
     private final HashMap<Integer, ResultView> views = new HashMap<>();
     @Inject
-    @Named("collectionFragment")
+    @Named(DiConst.COLLECTION_FRAGMENT)
     public FragmentPresenter presenter;
 
     private boolean check = false;

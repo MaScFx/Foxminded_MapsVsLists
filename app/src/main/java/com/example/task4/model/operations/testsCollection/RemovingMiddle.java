@@ -1,16 +1,12 @@
 package com.example.task4.model.operations.testsCollection;
 
-
-import static com.example.task4.model.constants.Operations.RemovingMiddleLL;
-
 import java.util.List;
 
-public class RemovingMiddleLL extends BaseListOperationClass {
+public class RemovingMiddle extends BaseListOperationClass {
 
-    public RemovingMiddleLL(List<Integer> list) {
-        super(list,RemovingMiddleLL.ordinal());
+    public RemovingMiddle(List<Integer> list, Integer id) {
+        super(list,id);
     }
-
     @Override
     protected void runTask() {
         synchronized (list) {

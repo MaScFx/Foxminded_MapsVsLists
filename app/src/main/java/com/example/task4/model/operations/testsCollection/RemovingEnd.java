@@ -1,13 +1,11 @@
 package com.example.task4.model.operations.testsCollection;
 
-import static com.example.task4.model.constants.Operations.RemovingEndLL;
-
 import java.util.List;
 
-public class RemovingEndLL extends BaseListOperationClass {
+public class RemovingEnd extends BaseListOperationClass {
 
-    public RemovingEndLL(List<Integer> list) {
-        super(list, RemovingEndLL.ordinal());
+    public RemovingEnd(List<Integer> list, Integer id) {
+        super(list, id);
     }
 
     @Override

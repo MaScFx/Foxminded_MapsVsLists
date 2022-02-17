@@ -41,12 +41,12 @@ class AppModule {
 @Module
 interface AppBindModule {
     @Binds
-    @Named("collectionFragment")
+    @Named(DiConst.COLLECTION_FRAGMENT)
     @Singleton
     FragmentPresenter bindsCollectionPresenter_to_FragmentPresenter(CollectionPresenter presenter);
 
     @Binds
-    @Named("mapsFragment")
+    @Named(DiConst.MAPS_FRAGMENT)
     @Singleton
     FragmentPresenter bindsMapPresenter_to_FragmentPresenter(MapPresenter presenter);
 
@@ -56,13 +56,13 @@ interface AppBindModule {
 }
 
 @Module
-abstract class ActivityBuildersModule {
+interface ActivityBuildersModule {
     @ContributesAndroidInjector
-    abstract MainApp contributeMainApp();
+    MainApp contributeMainApp();
 
     @ContributesAndroidInjector
-    abstract CollectionsFragment contributeCollectionsFragment();
+    CollectionsFragment contributeCollectionsFragment();
 
     @ContributesAndroidInjector
-    abstract MapsFragment contributeMapsFragment();
+    MapsFragment contributeMapsFragment();
 }

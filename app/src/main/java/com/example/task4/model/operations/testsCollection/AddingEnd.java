@@ -1,13 +1,11 @@
 package com.example.task4.model.operations.testsCollection;
 
-import static com.example.task4.model.constants.Operations.AddingEndAL;
-
 import java.util.List;
 
-public class AddingEndAL extends BaseListOperationClass {
+public class AddingEnd extends BaseListOperationClass {
 
-    public AddingEndAL(List<Integer> list) {
-        super(list, AddingEndAL.ordinal());
+    public AddingEnd(List<Integer> list, Integer id) {
+        super(list, id);
     }
 
     @Override

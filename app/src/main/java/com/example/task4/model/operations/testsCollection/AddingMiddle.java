@@ -2,15 +2,15 @@ package com.example.task4.model.operations.testsCollection;
 
 import java.util.List;
 
-public class SearchAL extends BaseListOperationClass {
+public class AddingMiddle extends BaseListOperationClass {
 
-    public SearchAL(List<Integer> list, Integer id) {
+    public AddingMiddle(List<Integer> list, Integer id) {
         super(list, id);
     }
 
     @Override
     protected void runTask() {
         int size = list.size();
-        list.indexOf(size / 2);
+        list.add(size / 2, size / 2);
     }
 }

@@ -1,5 +1,7 @@
 package com.example.task4.presenter;
 
+import static com.example.task4.model.constants.Operations.*;
+
 import android.util.Log;
 
 import com.example.task4.model.IDataKeeper;
@@ -47,33 +49,33 @@ public class CollectionPresenter extends FragmentPresenter.Presenter {
 
     private List<IOperation> createTests() {
         List<IOperation> tests = new ArrayList<>();
-        tests.add(new AddingBeginningALBase(OperationRunner.arrayList));
-        tests.add(new AddingBeginningLLBase(OperationRunner.linkedList));
-        tests.add(new AddingBeginningCoWBase(OperationRunner.arrayList));
+        tests.add(new AddingBeginning(OperationRunner.arrayList, AddingBeginningAL.ordinal()));
+        tests.add(new AddingBeginning(OperationRunner.linkedList, AddingBeginningLL.ordinal()));
+        tests.add(new AddingBeginning(OperationRunner.arrayList, AddingBeginningCoW.ordinal()));
 
-        tests.add(new AddingMiddleAL(OperationRunner.arrayList));
-        tests.add(new AddingMiddleLL(OperationRunner.linkedList));
-        tests.add(new AddingMiddleCoW(OperationRunner.arrayList));
+        tests.add(new AddingMiddle(OperationRunner.arrayList, AddingMiddleAL.ordinal()));
+        tests.add(new AddingMiddle(OperationRunner.linkedList, AddingMiddleLL.ordinal()));
+        tests.add(new AddingMiddle(OperationRunner.arrayList, AddingMiddleCoW.ordinal()));
 
-        tests.add(new AddingEndAL(OperationRunner.arrayList));
-        tests.add(new AddingEndLL(OperationRunner.linkedList));
-        tests.add(new AddingEndCoW(OperationRunner.arrayList));
+        tests.add(new AddingEnd(OperationRunner.arrayList, AddingEndAL.ordinal()));
+        tests.add(new AddingEnd(OperationRunner.linkedList, AddingEndLL.ordinal()));
+        tests.add(new AddingEnd(OperationRunner.arrayList, AddingEndCoW.ordinal()));
 
-        tests.add(new SearchAL(OperationRunner.arrayList));
-        tests.add(new SearchLL(OperationRunner.linkedList));
-        tests.add(new SearchCoW(OperationRunner.arrayList));
+        tests.add(new SearchAL(OperationRunner.arrayList, SearchAL.ordinal()));
+        tests.add(new SearchAL(OperationRunner.linkedList, SearchLL.ordinal()));
+        tests.add(new SearchAL(OperationRunner.arrayList, SearchCoW.ordinal()));
 
-        tests.add(new RemovingBeginningAL(OperationRunner.arrayList));
-        tests.add(new RemovingBeginningLL(OperationRunner.linkedList));
-        tests.add(new RemovingBeginningCoW(OperationRunner.arrayList));
+        tests.add(new RemovingBeginning(OperationRunner.arrayList, RemovingBeginningAL.ordinal()));
+        tests.add(new RemovingBeginning(OperationRunner.linkedList, RemovingBeginningLL.ordinal()));
+        tests.add(new RemovingBeginning(OperationRunner.arrayList, RemovingBeginningCoW.ordinal()));
 
-        tests.add(new RemovingMiddleAL(OperationRunner.arrayList));
-        tests.add(new RemovingMiddleLL(OperationRunner.linkedList));
-        tests.add(new RemovingMiddleCoW(OperationRunner.arrayList));
+        tests.add(new RemovingMiddle(OperationRunner.arrayList, RemovingMiddleAL.ordinal()));
+        tests.add(new RemovingMiddle(OperationRunner.linkedList, RemovingMiddleLL.ordinal()));
+        tests.add(new RemovingMiddle(OperationRunner.arrayList, RemovingMiddleCoW.ordinal()));
 
-        tests.add(new RemovingEndAL(OperationRunner.arrayList));
-        tests.add(new RemovingEndLL(OperationRunner.linkedList));
-        tests.add(new RemovingEndCoW(OperationRunner.arrayList));
+        tests.add(new RemovingEnd(OperationRunner.arrayList, RemovingEndAL.ordinal()));
+        tests.add(new RemovingEnd(OperationRunner.linkedList, RemovingEndLL.ordinal()));
+        tests.add(new RemovingEnd(OperationRunner.arrayList, RemovingEndCoW.ordinal()));
         return tests;
     }
 }

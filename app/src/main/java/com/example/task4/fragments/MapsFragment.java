@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.task4.R;
 import com.example.task4.customview.ResultView;
 import com.example.task4.databinding.MapsFragmentBinding;
+import com.example.task4.di.DiConst;
 import com.example.task4.presenter.FragmentPresenter;
 
 import java.util.HashMap;
@@ -36,7 +37,7 @@ public class MapsFragment extends DaggerFragment implements IResultObserver {
     private final HashMap<Integer, ResultView> views = new HashMap<>();
 
     @Inject
-    @Named("mapsFragment")
+    @Named(DiConst.MAPS_FRAGMENT)
     public FragmentPresenter presenter;
     private boolean check = false;
 

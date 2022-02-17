@@ -1,17 +1,16 @@
 package com.example.task4.presenter;
 
+import static com.example.task4.model.constants.Operations.*;
+
 import android.util.Log;
 
 import com.example.task4.model.IDataKeeper;
 import com.example.task4.model.OperationRunner;
 import com.example.task4.model.operations.IOperation;
 import com.example.task4.model.operations.fillingCollections.FillingMap;
-import com.example.task4.model.operations.testsMap.AddingNewHashMap;
-import com.example.task4.model.operations.testsMap.AddingNewTreeMap;
-import com.example.task4.model.operations.testsMap.RemovingHashMap;
-import com.example.task4.model.operations.testsMap.RemovingTreeMap;
-import com.example.task4.model.operations.testsMap.SearchByKeyHashMap;
-import com.example.task4.model.operations.testsMap.SearchByKeyTreeMap;
+import com.example.task4.model.operations.testsMap.AddingNewMap;
+import com.example.task4.model.operations.testsMap.RemovingMap;
+import com.example.task4.model.operations.testsMap.SearchByKeyMap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +46,12 @@ public class MapPresenter extends FragmentPresenter.Presenter {
 
     private List<IOperation> createTests() {
         List<IOperation> tests = new ArrayList<>();
-        tests.add(new AddingNewHashMap(OperationRunner.hashMap));
-        tests.add(new AddingNewTreeMap(OperationRunner.treeMap));
-        tests.add(new RemovingHashMap(OperationRunner.hashMap));
-        tests.add(new RemovingTreeMap(OperationRunner.treeMap));
-        tests.add(new SearchByKeyHashMap(OperationRunner.hashMap));
-        tests.add(new SearchByKeyTreeMap(OperationRunner.treeMap));
+        tests.add(new AddingNewMap(OperationRunner.hashMap, AddingNewHM.ordinal()));
+        tests.add(new AddingNewMap(OperationRunner.treeMap, AddingNewTM.ordinal()));
+        tests.add(new RemovingMap(OperationRunner.hashMap, RemovingHM.ordinal()));
+        tests.add(new RemovingMap(OperationRunner.treeMap, RemovingTM.ordinal()));
+        tests.add(new SearchByKeyMap(OperationRunner.hashMap, SearchHM.ordinal()));
+        tests.add(new SearchByKeyMap(OperationRunner.treeMap, SearchTM.ordinal()));
         return tests;
     }
 }
