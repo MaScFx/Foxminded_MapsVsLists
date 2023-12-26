@@ -12,6 +12,6 @@ public class AddingNewMap extends BaseMapOperationClass {
     @Override
     protected void runTask() {
         int size = map.size();
-        map.put("key " + size, size);
+        map.put("key " + (size+1), size+1);
     }
 }

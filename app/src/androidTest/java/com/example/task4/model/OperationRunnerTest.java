@@ -2,7 +2,7 @@ package com.example.task4.model;
 
 import static com.example.task4.model.constants.Operations.FillingListCompleted;
 import static com.example.task4.model.constants.Operations.FillingMapCompleted;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import com.example.task4.model.operations.fillingCollections.FillingList;
 import com.example.task4.model.operations.fillingCollections.FillingMap;
