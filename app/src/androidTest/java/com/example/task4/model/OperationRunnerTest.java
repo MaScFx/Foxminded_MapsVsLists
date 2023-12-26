@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.plugins.RxJavaPlugins;
@@ -52,7 +53,7 @@ public class OperationRunnerTest {
     public void getResults() {
         HashMap<Integer, String> resultMap = operationRunner.getResults();
         assert (resultMap.size() == 2);
-        assert (resultMap.get(FillingListCompleted.ordinal()).equals(""));
+        assert (Objects.equals(resultMap.get(FillingListCompleted.ordinal()), ""));
     }
 
     @Test
